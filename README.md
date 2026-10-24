@@ -184,11 +184,14 @@ O laboratório proporcionou experiência prática com criação, configuração,
 
 A atividade também demonstrou a importância da automação, do controle de acesso à rede e dos mecanismos de proteção no gerenciamento de recursos em nuvem.
 
+
 ## 🎓 Formação
 
-- **Instituição:** Escola da Nuvem
+- **Instituição:** [Escola da Nuvem](https://escoladanuvem.org/)
 - **Curso:** Computação em Nuvem
 - **Programa:** AWS re/Start
 - **Laboratório:** Introdução ao Amazon EC2
+- **Professor:** Raphael Bernardo Ohlsen
 
-🌐 [Escola da Nuvem](https://escoladanuvem.org/)
+🌐 [Site oficial da Escola da Nuvem](https://escoladanuvem.org/)
+
