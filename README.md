@@ -1,167 +1,194 @@
-☁️ Laboratório AWS — Introdução ao Amazon EC2
 
-!AWS !EC2 !Status
+# ☁️ Laboratório AWS — Introdução ao Amazon EC2
 
-📌 Sobre o projeto
+![AWS](https://img.shields.io/badge/AWS-Cloud%20Computing-FF9900?logo=amazonaws&logoColor=white)
+![Amazon EC2](https://img.shields.io/badge/Amazon-EC2-232F3E?logo=amazonec2&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Concluído-success)
 
-Este laboratório foi realizado durante a Formação em Nuvem com trilha AWS re/Start, oferecida pela Escola da Nuvem.
+Projeto prático desenvolvido durante a formação **Computação em Nuvem — AWS re/Start**, da [Escola da Nuvem](https://escoladanuvem.org/).
 
-O objetivo foi praticar a criação, configuração, monitoração e administração de uma instância do Amazon EC2 (Elastic Compute Cloud), além de configurar um servidor web na AWS.
+## 📸 Evidências do laboratório
 
-Durante a atividade, foram explorados recursos de rede, segurança, armazenamento, monitoramento e redimensionamento de uma instância virtual.
+### 01 — Executar uma instância
 
-🎯 Objetivos
-Criar e configurar uma instância EC2.
-Selecionar uma imagem de máquina Amazon (AMI).
-Configurar rede e grupos de segurança.
-Habilitar a proteção contra encerramento.
-Instalar um servidor web Apache usando User Data.
-Monitorar a instância.
-Liberar o acesso HTTP pela porta 80.
-Redimensionar a instância e o volume EBS.
-Testar a proteção contra encerramento.
-🛠️ Tecnologias e serviços utilizados
-Serviço ou tecnologia	Finalidade
-Amazon EC2	Criação e gerenciamento do servidor virtual
-Amazon Linux 2023	Sistema operacional
-Amazon EBS	Armazenamento em bloco
-Security Groups	Controle do tráfego de rede
-Apache HTTP Server	Hospedagem da página web
-Amazon CloudWatch	Monitoramento de métricas
-AWS Management Console	Gerenciamento dos recursos
-🚀 Etapas do laboratório
-1. Executar uma instância
+![Executar uma instância EC2](./images/01-executar-instancia.png.PNG)
 
-Início da configuração de uma nova instância pelo Console de Gerenciamento da AWS.
+### 02 — Selecionar uma AMI
 
-!01 - Executar uma instância
+![Selecionar uma AMI](./images/02-selecionar-ami.png.PNG)
 
-2. Selecionar uma imagem de máquina da Amazon (AMI)
+### 03 — Selecionar o tipo de instância
 
-Seleção da imagem Amazon Linux 2023, utilizada como sistema operacional do servidor.
+![Tipo de instância](./images/03-tipo-instancia.png.PNG)
 
-!02 - Selecionar AMI
+### 04 — Configurar o par de chaves
 
-3. Selecionar um tipo de instância
+![Par de chaves](./images/04-par-de-chaves.png.PNG)
 
-Configuração inicial da instância t3.micro, com 2 vCPUs e 1 GiB de memória.
+### 05 — Configurar a rede
 
-!03 - Tipo de instância
+![Configurações de rede](./images/05-configuracoes-rede.png.PNG)
 
-4. Configurar um par de chaves
+### 06 — Configurar o armazenamento
 
-Foi selecionada a opção de continuar sem um par de chaves, pois o acesso SSH não era necessário para as atividades propostas.
+![Armazenamento](./images/06-armazenamento.png.PNG)
 
-!04 - Configurar par de chaves
+### 07 — Configurar detalhes avançados
 
-5. Definir as configurações de rede
+![Detalhes avançados](./images/07-detalhes-avancados.png.PNG)
 
-Configuração da VPC do laboratório e criação do grupo de segurança Web Server security group.
+### 7.1 - Configurar detalhes avançados
 
-Inicialmente, as regras de entrada foram removidas para demonstrar como os grupos de segurança controlam o acesso à instância.
+![Revisão das configurações](./images/07-1-revisao-configuracoes.png.PNG)
 
-!05 - Configurações de rede
+### 08 — Instância criada
 
-6. Adicionar armazenamento
+![Instância criada](./images/08-instancia-criada.png.PNG)
 
-Utilização do volume raiz padrão do Amazon EBS, com capacidade inicial de 8 GiB.
+---
 
-!06 - Adicionar armazenamento
+## 🎯 Objetivos
 
-7. Configurar detalhes avançados
+- Criar uma instância Amazon EC2.
+- Configurar uma AMI e um tipo de instância.
+- Configurar rede e grupos de segurança.
+- Automatizar a instalação de um servidor web.
+- Monitorar a instância.
+- Liberar o tráfego HTTP na porta 80.
+- Redimensionar a instância e o volume EBS.
+- Testar a proteção contra encerramento.
 
-Foi habilitada a proteção contra encerramento e configurado um script de inicialização (User Data) para instalar e iniciar o Apache automaticamente.
+## 🛠️ Serviços e tecnologias
 
-bash
+| Serviço | Finalidade |
+|---|---|
+| Amazon EC2 | Servidor virtual na nuvem |
+| Amazon Linux 2023 | Sistema operacional |
+| Amazon VPC | Rede virtual |
+| Security Groups | Controle de tráfego |
+| Amazon EBS | Armazenamento |
+| Amazon CloudWatch | Monitoramento |
+| Apache HTTP Server | Servidor web |
+| Bash / User Data | Automação |
+
+## 🚀 Passo a passo
+
+### 1. Acessar o console AWS
+
+- Iniciar o laboratório na plataforma educacional.
+- Aguardar o ambiente ficar disponível.
+- Abrir o AWS Management Console.
+- Acessar o serviço Amazon EC2.
+- Manter a região definida pelo laboratório.
+
+### 2. Criar a instância EC2
+
+**Nome:** `Web Server`
+
+**AMI:** `Amazon Linux 2023`
+
+**Tipo inicial:** `t3.micro`
+
+**Par de chaves:** prosseguir sem par de chaves, conforme as instruções do laboratório.
+
+**Rede:** `Lab VPC`
+
+**Grupo de segurança:** `Web Server security group`
+
+**Armazenamento inicial:** `8 GiB`
+
+### 3. Configurar proteção e User Data
+
+Ativar a proteção contra encerramento e inserir o seguinte script no campo User Data:
+
+```bash
 #!/bin/bash
+
 yum -y install httpd
 systemctl enable httpd
 systemctl start httpd
+
 echo '<html><h1>Hello From Your Web Server!</h1></html>' > /var/www/html/index.html
+```
 
+O script instala o Apache, configura sua inicialização automática, inicia o serviço e cria uma página HTML.
 
-O script realiza a instalação do Apache, habilita sua inicialização automática, inicia o serviço e cria uma página HTML simples.
+Executar a instância e aguardar o estado `Running` e as verificações de status aprovadas.
 
-!07 - Detalhes avançados
+### 4. Monitorar a instância
 
-7.1. Revisar as configurações
+- Consultar a guia **Status checks**.
+- Verificar as condições de acessibilidade do sistema e da instância.
+- Acessar a guia **Monitoring** para visualizar as métricas do CloudWatch.
+- Explorar o recurso de captura de tela para diagnóstico.
 
-Conferência das configurações de inicialização, segurança e script antes de executar a instância.
+### 5. Liberar acesso HTTP
 
-!07.1 - Revisão das configurações
+No console EC2, acessar **Security Groups** e editar as regras de entrada de `Web Server security group`.
 
-8. Instância criada
+Adicionar a seguinte regra:
 
-Após a inicialização, foi verificado o estado Running (Em execução) e o resultado das verificações de status.
+| Parâmetro | Valor |
+|---|---|
+| Tipo | HTTP |
+| Protocolo | TCP |
+| Porta | 80 |
+| Origem | `0.0.0.0/0` |
 
-!08 - Instância criada
+Salvar as regras e acessar o IPv4 público da instância no navegador.
 
-🔍 Monitoramento da instância
+**Resultado esperado:**
 
-Foram exploradas as verificações de status do Amazon EC2 e as métricas de monitoramento disponibilizadas pelo Amazon CloudWatch.
+`Hello From Your Web Server!`
 
-As verificações permitem identificar possíveis problemas na infraestrutura ou na acessibilidade da instância.
+> Em ambientes de produção, restrinja a origem do tráfego sempre que possível.
 
-Também foi explorada a funcionalidade de captura de tela para auxiliar na análise e solução de problemas.
+### 6. Redimensionar a instância
 
-🌐 Configuração e acesso ao servidor web
+Interromper a instância antes de alterar seu tipo.
 
-Inicialmente, o servidor web não estava acessível porque o grupo de segurança não permitia tráfego HTTP de entrada.
+| Recurso | Antes | Depois |
+|---|---|---|
+| Tipo de instância | `t3.micro` | `t3.small` |
+| Volume EBS | `8 GiB` | `10 GiB` |
 
-Para liberar o acesso, foi adicionada a seguinte regra:
+Alterar o tipo da instância pelo menu de ações do EC2. Em seguida, acessar **Elastic Block Store → Volumes**, selecionar o volume e utilizar **Modify volume** para aumentar o tamanho para 10 GiB.
 
-Configuração	Valor
-Tipo	HTTP
-Porta	80
-Origem	0.0.0.0/0
+Depois das alterações, iniciar novamente a instância.
 
-Após salvar a regra e atualizar o navegador, foi possível visualizar a página com a mensagem:
+### 7. Testar a proteção contra encerramento
 
-Hello From Your Web Server!
+1. Tentar encerrar a instância com a proteção ativada.
+2. Confirmar que a operação é bloqueada.
+3. Acessar as configurações da instância.
+4. Desativar a proteção contra encerramento.
+5. Salvar a alteração.
+6. Encerrar a instância.
 
-Essa etapa demonstrou a importância das regras de entrada dos grupos de segurança para permitir o acesso às aplicações.
+### 8. Finalizar o laboratório
 
-📈 Redimensionamento da instância
+Encerrar o laboratório pela plataforma educacional e confirmar a finalização.
 
-A instância foi interrompida para permitir a alteração do tipo de instância e do volume de armazenamento.
+## 💡 Aprendizados
 
-Recurso	Configuração inicial	Configuração final
-Tipo de instância	t3.micro	t3.small
-Volume raiz EBS	8 GiB	10 GiB
+- Provisionamento de servidores na AWS.
+- Automação com User Data.
+- Configuração de redes e grupos de segurança.
+- Monitoramento com CloudWatch.
+- Redimensionamento de computação e armazenamento.
+- Proteção e gerenciamento do ciclo de vida de instâncias.
 
-Após as alterações, a instância foi iniciada novamente.
+## 🧠 Conclusão
 
-Essa atividade demonstrou como ajustar os recursos computacionais e o armazenamento de acordo com as necessidades de uma aplicação.
+O laboratório proporcionou experiência prática com criação, configuração, monitoramento, redimensionamento e encerramento de instâncias Amazon EC2.
 
-🔐 Teste da proteção contra encerramento
+A atividade também demonstrou a importância da automação, do controle de acesso à rede e dos mecanismos de proteção no gerenciamento de recursos em nuvem.
 
-Foi realizada uma tentativa de encerramento da instância enquanto a proteção estava habilitada. A operação foi bloqueada.
+## 🎓 Formação
 
-Em seguida, a proteção foi desabilitada e a instância foi encerrada conforme as instruções do laboratório.
+- **Instituição:** Escola da Nuvem
+- **Curso:** Computação em Nuvem
+- **Programa:** AWS re/Start
+- **Laboratório:** Introdução ao Amazon EC2
 
-Esse procedimento demonstrou como a proteção contra encerramento ajuda a evitar a exclusão acidental de instâncias.
-
-📚 Principais aprendizados
-Provisionamento de instâncias EC2.
-Configuração de rede e grupos de segurança.
-Automatização de tarefas com User Data.
-Instalação e execução de um servidor web Apache.
-Monitoramento de instâncias e verificações de status.
-Gerenciamento de volumes Amazon EBS.
-Redimensionamento de recursos computacionais.
-Configuração de acesso HTTP.
-Proteção contra encerramento acidental.
-✅ Conclusão
-
-O laboratório proporcionou uma experiência prática com o Amazon EC2, desde a criação e configuração da instância até a implantação de um servidor web, o monitoramento, o redimensionamento e o encerramento seguro.
-
-A atividade contribuiu para consolidar conhecimentos fundamentais de computação em nuvem, administração de servidores e segurança na AWS.
-
-🎓 Formação
-Instituição: Escola da Nuvem
-Formação: Formação em Nuvem com trilha AWS re/Start
-Atividade: Laboratório Introdução ao Amazon EC2
-Plataforma: Ambiente de laboratório AWS
-Status: Concluído
-
-Projeto desenvolvido para fins educacionais como parte da jornada de aprendizado em computação em nuvem.
+🌐 [Escola da Nuvem](https://escoladanuvem.org/)
